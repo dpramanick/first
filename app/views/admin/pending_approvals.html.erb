@@ -1,0 +1,55 @@
+
+<% if user_signed_in? && current_user.admin? %>
+  <div >
+    <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+    <% end %>
+  </div>
+
+
+  <% if @products.count == 0 %>
+  <div class="container border shadow rounded my-5">
+      <h3 class="my-4 text-center">No new products pending for approval </h3>
+  </div>
+    
+  <% else %>
+  <div class="border shadow rounded my-5">
+      <div class="row">
+          <div class="col-md-12">
+          <h3 class="my-4 text-center">Pending Products</h3>
+          <table class="table table-striped">
+              <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Price</th>
+                  <th>Seller</th> 
+                  
+              </tr>
+              </thead>
+              <tbody>
+              <% @products.each do |product| %>
+                  <tr>
+                  <td><%= product.name %></td>
+                  <td><%= product.location %></td>
+                  <td><%= product.price %></td>
+                  <td><%= product.user.name %></td>
+                  
+                  <td>
+                  <%= link_to "Accept", approve_product_path(product.id), class:"btn btn-success" %>
+                  <%= link_to "Reject", reject_product_path(product.id), class:"btn btn-danger" %>
+                  </td> 
+                  </tr>
+              <% end %>
+              </tbody>
+          </table>
+          </div>
+      </div>
+      
+  </div>
+  <% end %>
+  <% else %>
+  <h3>Sign in with an admin account</h3>
+
+
+<% end %>

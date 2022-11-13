@@ -1,0 +1,25 @@
+<h1>Seller</h1>
+
+<%#= @sel_info[1].name %>
+
+<%# @sel_info.each do |i| %>
+    <%#= i.name %>
+<%# end %>
+
+@sel_info = Product.where(:user_id => 1)
+
+
+
+
+
+
+<% @users.each do |i| %>
+    
+    <% k = Product.where(:user_id => i.id) %>
+    <% if k.count != 0 %>
+        <%= i.name %><br />
+        <% k.each do |j| %>
+            <%= j.name %>
+        <% end %><br />
+    <% end %>
+<% end %>
